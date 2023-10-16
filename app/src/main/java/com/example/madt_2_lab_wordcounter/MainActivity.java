@@ -37,19 +37,23 @@ import org.w3c.dom.Text;
      public void btnCountClick(View view) {
          String selectionChars = getResources().getString(R.string.selection_chars);
 
-         if (this.spinner.getSelectedItem().toString().equalsIgnoreCase(selectionChars)) {
+         String TextInput = this.edTextInput.getText().toString();
+         Log.i("UserText", TextInput);
+         if (TextInput.trim().isEmpty()) {
+             Toast.makeText(this, "Error:Text is empty", Toast.LENGTH_SHORT).show();
+         } else {
+             if (this.spinner.getSelectedItem().toString().equalsIgnoreCase(selectionChars)) {
 
-             String TextInput = this.edTextInput.getText().toString();
-             Log.i("UserText", TextInput);
+                 int count = CounterWord.getCharsCount(TextInput);
+                 Log.i("UserTextCount", String.valueOf(count));
 
-             int count = CounterWord.getCharsCount(TextInput);
-             Log.i("UserTextCount", String.valueOf(count));
+                 this.tvResult.setText(String.valueOf(count));
+             } else {
+                 int count = CounterWord.getWordsCount(TextInput);
+                 Log.i("UserTextCount", String.valueOf(count));
 
-             this.tvResult.setText(String.valueOf(count));
-         }
-         else {
-             Toast.makeText(this,"Not Implemented", Toast.LENGTH_SHORT).show();
-
+                 this.tvResult.setText(String.valueOf(count));
+             }
          }
      }
  }
